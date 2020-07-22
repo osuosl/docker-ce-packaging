@@ -18,7 +18,7 @@ clean: ## remove build artifacts
 	-docker builder prune -f --filter until=24h
 
 .PHONY: static
-static: static-linux cross-mac cross-win cross-arm ## create all static packages
+static: static-linux ## create all static packages
 
 .PHONY: static-linux
 static-linux: static-cli static-engine ## create tgz with linux x86_64 client and server

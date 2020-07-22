@@ -12,7 +12,7 @@ SCAN_GITCOMMIT?=$(shell cd $(realpath $(CURDIR)/../src/github.com/docker/scan-cl
 ifdef BUILD_IMAGE
 	BUILD_IMAGE_FLAG=--build-arg $(BUILD_IMAGE)
 endif
-BUILD?=DOCKER_BUILDKIT=1 \
+BUILD?=DOCKER_BUILDKIT=0 \
 	docker build \
 	$(BUILD_IMAGE_FLAG) \
 	--build-arg GO_IMAGE=$(GO_IMAGE) \
@@ -58,7 +58,7 @@ else
 RHEL_RELEASES ?=
 endif
 
-DISTROS := $(FEDORA_RELEASES) $(CENTOS_RELEASES) $(RHEL_RELEASES)
+DISTROS := $(CENTOS_RELEASES)
 BUNDLES := $(patsubst %,rpmbuild/bundles-ce-%-$(DPKG_ARCH).tar.gz,$(DISTROS))
 
 .PHONY: help

@@ -72,7 +72,7 @@ deb: checkout ## build deb packages
 	$(MAKE) -C $@ VERSION=$(VERSION) GO_VERSION=$(GO_VERSION) deb
 
 .PHONY: static
-static: DOCKER_BUILD_PKGS:=static-linux cross-mac cross-win cross-arm
+static: DOCKER_BUILD_PKGS:=static-linux
 static: checkout ## build static-compiled packages
 	for p in $(DOCKER_BUILD_PKGS); do \
 		$(MAKE) -C $@ VERSION=$(VERSION) GO_VERSION=$(GO_VERSION) TARGETPLATFORM=$(TARGETPLATFORM) $${p}; \
