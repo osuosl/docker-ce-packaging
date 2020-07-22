@@ -13,7 +13,7 @@ CHOWN=docker run --rm -i -v $(CURDIR):/v -w /v alpine chown
 ifdef BUILD_IMAGE
 	BUILD_IMAGE_FLAG=--build-arg $(BUILD_IMAGE)
 endif
-BUILD?=DOCKER_BUILDKIT=1 \
+BUILD?=DOCKER_BUILDKIT=0 \
 	docker build \
 	$(BUILD_IMAGE_FLAG) \
 	--build-arg GO_IMAGE=$(GO_IMAGE) \
@@ -43,7 +43,7 @@ SOURCES=$(addprefix rpmbuild/SOURCES/, $(SOURCE_FILES))
 FEDORA_RELEASES ?= fedora-32
 CENTOS_RELEASES ?= centos-7 centos-8
 RHEL_RELEASES ?= rhel-7
-DISTROS := $(FEDORA_RELEASES) $(CENTOS_RELEASES) $(RHEL_RELEASES)
+DISTROS := $(CENTOS_RELEASES)
 
 .PHONY: help
 help: ## show make targets

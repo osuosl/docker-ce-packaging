@@ -31,7 +31,7 @@ deb: ## build deb packages
 	$(MAKE) -C $@ VERSION=$(VERSION) ENGINE_DIR=$(ENGINE_DIR) CLI_DIR=$(CLI_DIR) GO_VERSION=$(GO_VERSION) deb
 
 .PHONY: static
-static: DOCKER_BUILD_PKGS:=static-linux cross-mac cross-win cross-arm
+static: DOCKER_BUILD_PKGS:=static-linux
 static: ## build static-compiled packages
 	for p in $(DOCKER_BUILD_PKGS); do \
 		$(MAKE) -C $@ VERSION=$(VERSION) ENGINE_DIR=$(ENGINE_DIR) CLI_DIR=$(CLI_DIR) GO_VERSION=$(GO_VERSION) $${p}; \
