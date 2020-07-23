@@ -5,7 +5,7 @@ ARG BUILD_IMAGE=${DISTRO}:${SUITE}
 
 FROM ${GO_IMAGE} AS golang
 
-FROM ${BUILD_IMAGE}
+FROM rhel8
 ENV GOPROXY=direct
 ENV GO111MODULE=off
 ENV GOPATH=/go
@@ -28,9 +28,10 @@ RUN if [ -f /etc/yum.repos.d/CentOS-Linux-PowerTools.repo ]; then sed -i 's/enab
 # "rpmkeys --import"as part of rpm package's %post scriplet. See
 # https://forums.centos.org/viewtopic.php?f=54&t=72574, and
 # https://access.redhat.com/solutions/3720351
-RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
+#RUN rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-centosofficial
 RUN yum install -y rpm-build rpmlint yum-utils
 COPY SPECS /root/rpmbuild/SPECS
+RUN ln -s /usr/bin/gcc /usr/bin/s390x-linux-gnu-gcc
 RUN yum-builddep --define '_without_btrfs 1' -y /root/rpmbuild/SPECS/*.spec
 COPY --from=golang /usr/local/go /usr/local/go
 WORKDIR /root/rpmbuild
